@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block title %}Контакты{% endblock %}
+
+{% block style %}
+    .contact-info-container {
+        margin-top: 50px;
+    }
+    .contact-info-item {
+        margin-bottom: 20px;
+    }
+    .map-container {
+        margin-top: 50px;
+    }
+    /* Стили для карты */
+    #map {
+        height: 400px;
+        width: 100%;
+    }
+{% endblock %}
+
+{% block body %}
+<div class="container">
+    <h2 class="text-center">Контакты</h2>
+    <div class="row contact-info-container">
+        <div class="col-md-6">
+            <div class="contact-info-item">
+                <h3>Телефон</h3>
+                <p>+7 (XXX) XXX-XX-XX</p>
+            </div>
+            <div class="contact-info-item">
+                <h3>Электронная почта администрации</h3>
+                <p>admin@example.com</p>
+            </div>
+            <div class="contact-info-item">
+                <h3>Электронная почта для коммерческих предложений</h3>
+                <p>sales@example.com</p>
+            </div>
+            <div class="contact-info-item">
+                <h3>Адрес фитнес-центра</h3>
+                <p>ул. Пушкина, д. 10, г. Город</p>
+            </div>
+            <div class="contact-info-item">
+                <h3>Режим работы</h3>
+                <p>Пн-Пт: 8:00-22:00<br>Сб-Вс: 9:00-20:00</p>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <h3>Местоположение на карте</h3>
+            <div id="map"></div>
+        </div>
+    </div>
+</div>
+{% endblock %}

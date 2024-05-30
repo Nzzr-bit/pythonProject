@@ -1,0 +1,79 @@
+{% extends 'base.html' %}
+
+{% block title %} Услуги {% endblock %}
+{% block style %}
+  .service-card {
+    width: 300px;
+    height: auto;
+    background-color: #444;
+    margin: 20px;
+    padding: 20px;
+    border-radius: 15px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s;
+    color: #fff;
+  }
+
+  .service-card:hover {
+    transform: scale(1.05);
+  }
+
+  .service-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+
+  .btn-primary {
+    background-color: #ffc107;
+    border-color: #ffc107;
+    color: #000;
+  }
+
+  .btn-primary:hover {
+    background-color: #e0a800;
+    border-color: #d39e00;
+  }
+{% endblock %}
+{% block body %}
+
+<div class="container mt-5">
+  <h1 class="text-center mb-5">Наши услуги</h1>
+  <div class="service-container">
+    {% for service in services %}
+      <div class="service-card">
+        <h3>{{ service.name }}</h3>
+        <p>Цена: {{ service.price }} руб.</p>
+        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#serviceModal{{ service.id }}">
+          Подробнее
+        </button>
+      </div>
+
+      <div class="modal fade" id="serviceModal{{ service.id }}" tabindex="-1" role="dialog" aria-labelledby="serviceModalLabel{{ service.id }}" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="serviceModalLabel{{ service.id }}">{{ service.name }}</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <p>{{ service.description }}</p>
+              <p>Цена: {{ service.price }} руб.</p>
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    {% endfor %}
+  </div>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

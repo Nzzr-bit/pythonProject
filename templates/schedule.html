@@ -1,0 +1,87 @@
+{% extends 'base.html' %}
+
+{% block title %}Расписание{% endblock %}
+{% block style %}
+    .schedule-container {
+        margin-top: 60px;
+        padding: 0 20px;
+    }
+    .schedule-month-list {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+    }
+    .schedule-month-item a {
+        text-decoration: none;
+        color: #007bff;
+    }
+    .schedule-month-item a:hover {
+        text-decoration: underline;
+    }
+    .schedule-table {
+        margin-top: 20px;
+    }
+    .schedule-table th {
+        background-color: #f8f9fa;
+    }
+    .schedule-month-title {
+        margin-top: 40px;
+        color: #ffc107;
+    }
+    .schedule-date-row {
+        background-color: #e9ecef;
+        font-weight: bold;
+        text-align: center;
+    }
+{% endblock %}
+{% block body %}
+<div class="container schedule-container">
+    <h2 class="text-center">Расписание</h2>
+    <div class="row">
+        <div class="col-md-3">
+            <h3>Месяц</h3>
+            <ul class="list-group schedule-month-list">
+                {% for month, month_data in schedule|dictsort %}
+                    <li class="list-group-item schedule-month-item">
+                        <a href="#{{ month }}">{{ month }}</a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class="col-md-9">
+            {% for month, month_data in schedule|dictsort %}
+                <div id="{{ month }}" class="schedule-month-title">{{ month }}</div>
+                <table class="table table-bordered schedule-table">
+                    <thead>
+                        <tr>
+                            <th>Дата</th>
+                            <th>Начало</th>
+                            <th>Конец</th>
+                            <th>Тренер</th>
+                            <th>Занятие</th>
+                            <th>Зал</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        {% for date, lessons_list in month_data.items() %}
+                            <tr class="schedule-date-row">
+                                <td colspan="6">{{ date }}</td>
+                            </tr>
+                            {% for lesson in lessons_list %}
+                            <tr>
+                                <td>{{ date }}</td>
+                                <td>{{ lesson.start_time.strftime('%H:%M') }}</td>
+                                <td>{{ lesson.end_time.strftime('%H:%M') }}</td>
+                                <td>{{ lesson.trainer.full_name }}</td>
+                                <td>{{ lesson.title }}</td>
+                                <td>{{ lesson.hall }}</td>
+                            </tr>
+                            {% endfor %}
+                        {% endfor %}
+                    </tbody>
+                </table>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+{% endblock %}
